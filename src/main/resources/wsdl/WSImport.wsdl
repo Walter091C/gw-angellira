@@ -1,0 +1,1307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.angellira.com.br/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.angellira.com.br/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.angellira.com.br/">
+      <s:element name="AgendarViagem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_Viagens">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgendarViagemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AgendarViagemResult" type="tns:ArrayOfRetornoViagem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRetornoViagem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RetornoViagem" nillable="true" type="tns:RetornoViagem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RetornoViagem">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RetornoInclusao">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="carga" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="RetornoInclusao">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Retorno">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="codigo" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Retorno">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ValidationSoapHeader" type="tns:ValidationSoapHeader" />
+      <s:complexType name="ValidationSoapHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="userCod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="userPwd" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="homologacao" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="api_interna" nillable="true" type="s:boolean" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="ValidarViagem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_Viagens">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidarViagemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidarViagemResult" type="tns:ArrayOfRetornoViagem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CadastrarCliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="clientes" type="tns:ArrayOfCliente" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCliente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cliente" nillable="true" type="tns:Cliente" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Cliente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cnpj" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cpf" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="nome" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fantasia" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="endereco" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="numero" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="complemento" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="bairro" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cidade" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="uf" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="cep" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="observacao" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="isTransportador" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="latitude" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="longitude" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="raio" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="poligono" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="procedimentos" type="tns:ArrayOfInt" />
+          <s:element minOccurs="1" maxOccurs="1" name="tipoUnidade" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="contratoAtivo" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="itensComercializados" type="tns:ArrayOfProdutoServico" />
+          <s:element minOccurs="0" maxOccurs="1" name="horarioFuncionamento" type="tns:Funcionamento" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProdutoServico">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProdutoServico" nillable="true" type="tns:ProdutoServico" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProdutoServico">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="identificador" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="descricao" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="unidadeMedida" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="valor" type="s:float" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Funcionamento">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="domingo" type="tns:Horario" />
+          <s:element minOccurs="0" maxOccurs="1" name="segunda" type="tns:Horario" />
+          <s:element minOccurs="0" maxOccurs="1" name="terca" type="tns:Horario" />
+          <s:element minOccurs="0" maxOccurs="1" name="quarta" type="tns:Horario" />
+          <s:element minOccurs="0" maxOccurs="1" name="quinta" type="tns:Horario" />
+          <s:element minOccurs="0" maxOccurs="1" name="sexta" type="tns:Horario" />
+          <s:element minOccurs="0" maxOccurs="1" name="sabado" type="tns:Horario" />
+          <s:element minOccurs="0" maxOccurs="1" name="feriado" type="tns:Horario" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Horario">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="abertura" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="fechamento" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CadastrarClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CadastrarClienteResult" type="tns:ArrayOfRetornoCliente" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRetornoCliente">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RetornoCliente" nillable="true" type="tns:RetornoCliente" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RetornoCliente">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RetornoInclusao">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="lat" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="lon" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetProcedimentoEmbarque">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetProcedimentoEmbarqueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProcedimentoEmbarqueResult" type="tns:ArrayOfRetornoItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRetornoItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RetornoItem" nillable="true" type="tns:RetornoItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RetornoItem">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Retorno">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="codigo" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="descricao" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetFaixaTemperatura">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="procedimentoEmbarque" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFaixaTemperaturaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFaixaTemperaturaResult" type="tns:ArrayOfRetornoItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRotas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UltimaRotaRecebida" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pontos" type="tns:PesquisaRota" />
+            <s:element minOccurs="0" maxOccurs="1" name="AglCodes" type="tns:ArrayOfInt" />
+            <s:element minOccurs="1" maxOccurs="1" name="retornarPolilinha" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PesquisaRota">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Origem" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Destino" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Entregas" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetRotasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRotasResult" type="tns:ArrayOfRetornoRota" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRetornoRota">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RetornoRota" nillable="true" type="tns:RetornoRota" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RetornoRota">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RetornoItem">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="vinculo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="caminhoLatitude" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="caminhoLongitude" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pontoLatitude" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pontoLongitude" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="urlWeb" nillable="true" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pontos" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="caminho" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="origem" nillable="true" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="destino" nillable="true" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="entregas" type="tns:ArrayOfString" />
+              <s:element minOccurs="0" maxOccurs="1" name="polilinha" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="distancia" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="tempo" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetRota">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="codInicial" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="codFinal" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRotaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRotaResult" type="tns:ArrayOfRetornoRota" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelarEntrega">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cancelamentos" type="tns:ArrayOfCancelamentoEntrega" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCancelamentoEntrega">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CancelamentoEntrega" nillable="true" type="tns:CancelamentoEntrega" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CancelamentoEntrega">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Cancelamento">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="E_Cliente" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="O_Id" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="O_Obs" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="O_Data" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Cancelamento">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="V_Carga" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="V_ProcedimentoEmbarque" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CancelarEntregaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelarEntregaResult" type="tns:ArrayOfRetornoEntrega" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRetornoEntrega">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RetornoEntrega" nillable="true" type="tns:RetornoEntrega" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RetornoEntrega">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RetornoViagem">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="cliente" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CancelarViagem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cancelamentos" type="tns:ArrayOfCancelamento" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCancelamento">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Cancelamento" nillable="true" type="tns:Cancelamento" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CancelarViagemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelarViagemResult" type="tns:ArrayOfRetornoViagem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CadastrarTipoOcorrencia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tipo" type="tns:TipoOcorrencia" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TipoOcorrencia">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="descricao" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="obrigaFoto" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="obrigaObs" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="isCancelamento" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="isAtivo" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="isInterno" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="isOcultaEntrega" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CadastrarTipoOcorrenciaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CadastrarTipoOcorrenciaResult" type="tns:RetornoInclusao" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CadastrarProduto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="produtos" type="tns:ArrayOfCadProduto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCadProduto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CadProduto" nillable="true" type="tns:CadProduto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CadProduto">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ProcEmbarque" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descricao" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Referencia" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TipoLogistica" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CadastrarProdutoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CadastrarProdutoResult" type="tns:ArrayOfRetornoCadProduto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRetornoCadProduto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RetornoCadProduto" nillable="true" type="tns:RetornoCadProduto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RetornoCadProduto">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:RetornoInclusao">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="referencia" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="AtualizarRotaViagem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="rota" type="tns:TrechoRotaViagem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TrechoRotaViagem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="v_carga" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="trechos" type="tns:ArrayOfTrecho" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTrecho">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Trecho" nillable="true" type="tns:Trecho" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Trecho">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="index" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="pontos" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AtualizarRotaViagemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AtualizarRotaViagemResult" type="tns:RetornoCadTrechoRota" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RetornoCadTrechoRota">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="codigo" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="v_carga" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="motivo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListaTCAFranquia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaTCAFranquiaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaTCAFranquiaResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CadastrarUnidadePagadora">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Descricao" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CadastrarUnidadePagadoraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CadastrarUnidadePagadoraResult" type="tns:RetornoInclusao" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CadastrarAlocacaoDeCusto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Descricao" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CadastrarAlocacaoDeCustoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CadastrarAlocacaoDeCustoResult" type="tns:RetornoInclusao" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SequenciarEntregas">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Origem" type="tns:WayPoint" />
+            <s:element minOccurs="0" maxOccurs="1" name="Entregas" type="tns:ArrayOfWayPoint" />
+            <s:element minOccurs="0" maxOccurs="1" name="Destino" type="tns:WayPoint" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WayPoint">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="descricao" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="lat" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="lng" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfWayPoint">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WayPoint" nillable="true" type="tns:WayPoint" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SequenciarEntregasResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SequenciarEntregasResult" type="tns:ArrayOfWayPoint" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDispositivoAssociado">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Usuarios" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDispositivoAssociadoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDispositivoAssociadoResult" type="tns:ArrayOfUsuarioMobile" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUsuarioMobile">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UsuarioMobile" nillable="true" type="tns:UsuarioMobile" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UsuarioMobile">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Retorno">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="codigo" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="usuario" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="dispositivo" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="IniciarViagem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="viagem" type="tns:IdentificadorViagem" />
+            <s:element minOccurs="1" maxOccurs="1" name="data" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="observacao" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="IdentificadorViagem">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Cancelamento" />
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="IniciarViagemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="IniciarViagemResult" type="tns:RetornoViagem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FinalizarViagem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="viagem" type="tns:IdentificadorViagem" />
+            <s:element minOccurs="1" maxOccurs="1" name="data" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="observacao" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FinalizarViagemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FinalizarViagemResult" type="tns:RetornoViagem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarIdentificacaoViagem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="_Viagens">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnviarIdentificacaoViagemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EnviarIdentificacaoViagemResult" type="tns:ArrayOfRetornoViagem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AgendarViagemSoapIn">
+    <wsdl:part name="parameters" element="tns:AgendarViagem" />
+  </wsdl:message>
+  <wsdl:message name="AgendarViagemSoapOut">
+    <wsdl:part name="parameters" element="tns:AgendarViagemResponse" />
+  </wsdl:message>
+  <wsdl:message name="AgendarViagemValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="ValidarViagemSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidarViagem" />
+  </wsdl:message>
+  <wsdl:message name="ValidarViagemSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidarViagemResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidarViagemValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:CadastrarCliente" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:CadastrarClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarClienteValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProcedimentoEmbarqueSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProcedimentoEmbarque" />
+  </wsdl:message>
+  <wsdl:message name="GetProcedimentoEmbarqueSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProcedimentoEmbarqueResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcedimentoEmbarqueValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetFaixaTemperaturaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFaixaTemperatura" />
+  </wsdl:message>
+  <wsdl:message name="GetFaixaTemperaturaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFaixaTemperaturaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFaixaTemperaturaValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetRotasSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRotas" />
+  </wsdl:message>
+  <wsdl:message name="GetRotasSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRotasResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRotasValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetRotaSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRota" />
+  </wsdl:message>
+  <wsdl:message name="GetRotaSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRotaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRotaValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CancelarEntregaSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelarEntrega" />
+  </wsdl:message>
+  <wsdl:message name="CancelarEntregaSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelarEntregaResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelarEntregaValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CancelarViagemSoapIn">
+    <wsdl:part name="parameters" element="tns:CancelarViagem" />
+  </wsdl:message>
+  <wsdl:message name="CancelarViagemSoapOut">
+    <wsdl:part name="parameters" element="tns:CancelarViagemResponse" />
+  </wsdl:message>
+  <wsdl:message name="CancelarViagemValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarTipoOcorrenciaSoapIn">
+    <wsdl:part name="parameters" element="tns:CadastrarTipoOcorrencia" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarTipoOcorrenciaSoapOut">
+    <wsdl:part name="parameters" element="tns:CadastrarTipoOcorrenciaResponse" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarTipoOcorrenciaValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarProdutoSoapIn">
+    <wsdl:part name="parameters" element="tns:CadastrarProduto" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarProdutoSoapOut">
+    <wsdl:part name="parameters" element="tns:CadastrarProdutoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarProdutoValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="AtualizarRotaViagemSoapIn">
+    <wsdl:part name="parameters" element="tns:AtualizarRotaViagem" />
+  </wsdl:message>
+  <wsdl:message name="AtualizarRotaViagemSoapOut">
+    <wsdl:part name="parameters" element="tns:AtualizarRotaViagemResponse" />
+  </wsdl:message>
+  <wsdl:message name="AtualizarRotaViagemValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="ListaTCAFranquiaSoapIn">
+    <wsdl:part name="parameters" element="tns:ListaTCAFranquia" />
+  </wsdl:message>
+  <wsdl:message name="ListaTCAFranquiaSoapOut">
+    <wsdl:part name="parameters" element="tns:ListaTCAFranquiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListaTCAFranquiaValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarUnidadePagadoraSoapIn">
+    <wsdl:part name="parameters" element="tns:CadastrarUnidadePagadora" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarUnidadePagadoraSoapOut">
+    <wsdl:part name="parameters" element="tns:CadastrarUnidadePagadoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarUnidadePagadoraValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarAlocacaoDeCustoSoapIn">
+    <wsdl:part name="parameters" element="tns:CadastrarAlocacaoDeCusto" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarAlocacaoDeCustoSoapOut">
+    <wsdl:part name="parameters" element="tns:CadastrarAlocacaoDeCustoResponse" />
+  </wsdl:message>
+  <wsdl:message name="CadastrarAlocacaoDeCustoValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="SequenciarEntregasSoapIn">
+    <wsdl:part name="parameters" element="tns:SequenciarEntregas" />
+  </wsdl:message>
+  <wsdl:message name="SequenciarEntregasSoapOut">
+    <wsdl:part name="parameters" element="tns:SequenciarEntregasResponse" />
+  </wsdl:message>
+  <wsdl:message name="SequenciarEntregasValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetDispositivoAssociadoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDispositivoAssociado" />
+  </wsdl:message>
+  <wsdl:message name="GetDispositivoAssociadoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDispositivoAssociadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDispositivoAssociadoValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="IniciarViagemSoapIn">
+    <wsdl:part name="parameters" element="tns:IniciarViagem" />
+  </wsdl:message>
+  <wsdl:message name="IniciarViagemSoapOut">
+    <wsdl:part name="parameters" element="tns:IniciarViagemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IniciarViagemValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="FinalizarViagemSoapIn">
+    <wsdl:part name="parameters" element="tns:FinalizarViagem" />
+  </wsdl:message>
+  <wsdl:message name="FinalizarViagemSoapOut">
+    <wsdl:part name="parameters" element="tns:FinalizarViagemResponse" />
+  </wsdl:message>
+  <wsdl:message name="FinalizarViagemValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:message name="EnviarIdentificacaoViagemSoapIn">
+    <wsdl:part name="parameters" element="tns:EnviarIdentificacaoViagem" />
+  </wsdl:message>
+  <wsdl:message name="EnviarIdentificacaoViagemSoapOut">
+    <wsdl:part name="parameters" element="tns:EnviarIdentificacaoViagemResponse" />
+  </wsdl:message>
+  <wsdl:message name="EnviarIdentificacaoViagemValidationSoapHeader">
+    <wsdl:part name="ValidationSoapHeader" element="tns:ValidationSoapHeader" />
+  </wsdl:message>
+  <wsdl:portType name="WSImportSoap">
+    <wsdl:operation name="AgendarViagem">
+      <wsdl:input message="tns:AgendarViagemSoapIn" />
+      <wsdl:output message="tns:AgendarViagemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarViagem">
+      <wsdl:input message="tns:ValidarViagemSoapIn" />
+      <wsdl:output message="tns:ValidarViagemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarCliente">
+      <wsdl:input message="tns:CadastrarClienteSoapIn" />
+      <wsdl:output message="tns:CadastrarClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcedimentoEmbarque">
+      <wsdl:input message="tns:GetProcedimentoEmbarqueSoapIn" />
+      <wsdl:output message="tns:GetProcedimentoEmbarqueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFaixaTemperatura">
+      <wsdl:input message="tns:GetFaixaTemperaturaSoapIn" />
+      <wsdl:output message="tns:GetFaixaTemperaturaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRotas">
+      <wsdl:input message="tns:GetRotasSoapIn" />
+      <wsdl:output message="tns:GetRotasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRota">
+      <wsdl:input message="tns:GetRotaSoapIn" />
+      <wsdl:output message="tns:GetRotaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelarEntrega">
+      <wsdl:input message="tns:CancelarEntregaSoapIn" />
+      <wsdl:output message="tns:CancelarEntregaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelarViagem">
+      <wsdl:input message="tns:CancelarViagemSoapIn" />
+      <wsdl:output message="tns:CancelarViagemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarTipoOcorrencia">
+      <wsdl:input message="tns:CadastrarTipoOcorrenciaSoapIn" />
+      <wsdl:output message="tns:CadastrarTipoOcorrenciaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarProduto">
+      <wsdl:input message="tns:CadastrarProdutoSoapIn" />
+      <wsdl:output message="tns:CadastrarProdutoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AtualizarRotaViagem">
+      <wsdl:input message="tns:AtualizarRotaViagemSoapIn" />
+      <wsdl:output message="tns:AtualizarRotaViagemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListaTCAFranquia">
+      <wsdl:input message="tns:ListaTCAFranquiaSoapIn" />
+      <wsdl:output message="tns:ListaTCAFranquiaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarUnidadePagadora">
+      <wsdl:input message="tns:CadastrarUnidadePagadoraSoapIn" />
+      <wsdl:output message="tns:CadastrarUnidadePagadoraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarAlocacaoDeCusto">
+      <wsdl:input message="tns:CadastrarAlocacaoDeCustoSoapIn" />
+      <wsdl:output message="tns:CadastrarAlocacaoDeCustoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SequenciarEntregas">
+      <wsdl:input message="tns:SequenciarEntregasSoapIn" />
+      <wsdl:output message="tns:SequenciarEntregasSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDispositivoAssociado">
+      <wsdl:input message="tns:GetDispositivoAssociadoSoapIn" />
+      <wsdl:output message="tns:GetDispositivoAssociadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IniciarViagem">
+      <wsdl:input message="tns:IniciarViagemSoapIn" />
+      <wsdl:output message="tns:IniciarViagemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinalizarViagem">
+      <wsdl:input message="tns:FinalizarViagemSoapIn" />
+      <wsdl:output message="tns:FinalizarViagemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarIdentificacaoViagem">
+      <wsdl:input message="tns:EnviarIdentificacaoViagemSoapIn" />
+      <wsdl:output message="tns:EnviarIdentificacaoViagemSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSImportSoap" type="tns:WSImportSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AgendarViagem">
+      <soap:operation soapAction="http://www.angellira.com.br/AgendarViagem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AgendarViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarViagem">
+      <soap:operation soapAction="http://www.angellira.com.br/ValidarViagem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ValidarViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarCliente">
+      <soap:operation soapAction="http://www.angellira.com.br/CadastrarCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CadastrarClienteValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcedimentoEmbarque">
+      <soap:operation soapAction="http://www.angellira.com.br/GetProcedimentoEmbarque" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProcedimentoEmbarqueValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFaixaTemperatura">
+      <soap:operation soapAction="http://www.angellira.com.br/GetFaixaTemperatura" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetFaixaTemperaturaValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRotas">
+      <soap:operation soapAction="http://www.angellira.com.br/GetRotas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetRotasValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRota">
+      <soap:operation soapAction="http://www.angellira.com.br/GetRota" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetRotaValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelarEntrega">
+      <soap:operation soapAction="http://www.angellira.com.br/CancelarEntrega" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelarEntregaValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelarViagem">
+      <soap:operation soapAction="http://www.angellira.com.br/CancelarViagem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CancelarViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarTipoOcorrencia">
+      <soap:operation soapAction="http://www.angellira.com.br/CadastrarTipoOcorrencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CadastrarTipoOcorrenciaValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarProduto">
+      <soap:operation soapAction="http://www.angellira.com.br/CadastrarProduto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CadastrarProdutoValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AtualizarRotaViagem">
+      <soap:operation soapAction="http://www.angellira.com.br/AtualizarRotaViagem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AtualizarRotaViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaTCAFranquia">
+      <soap:operation soapAction="http://www.angellira.com.br/ListaTCAFranquia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListaTCAFranquiaValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarUnidadePagadora">
+      <soap:operation soapAction="http://www.angellira.com.br/CadastrarUnidadePagadora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CadastrarUnidadePagadoraValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarAlocacaoDeCusto">
+      <soap:operation soapAction="http://www.angellira.com.br/CadastrarAlocacaoDeCusto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:CadastrarAlocacaoDeCustoValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SequenciarEntregas">
+      <soap:operation soapAction="http://www.angellira.com.br/SequenciarEntregas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:SequenciarEntregasValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDispositivoAssociado">
+      <soap:operation soapAction="http://www.angellira.com.br/GetDispositivoAssociado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetDispositivoAssociadoValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IniciarViagem">
+      <soap:operation soapAction="http://www.angellira.com.br/IniciarViagem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:IniciarViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinalizarViagem">
+      <soap:operation soapAction="http://www.angellira.com.br/FinalizarViagem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:FinalizarViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarIdentificacaoViagem">
+      <soap:operation soapAction="http://www.angellira.com.br/EnviarIdentificacaoViagem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:EnviarIdentificacaoViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSImportSoap12" type="tns:WSImportSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AgendarViagem">
+      <soap12:operation soapAction="http://www.angellira.com.br/AgendarViagem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AgendarViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarViagem">
+      <soap12:operation soapAction="http://www.angellira.com.br/ValidarViagem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ValidarViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarCliente">
+      <soap12:operation soapAction="http://www.angellira.com.br/CadastrarCliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CadastrarClienteValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcedimentoEmbarque">
+      <soap12:operation soapAction="http://www.angellira.com.br/GetProcedimentoEmbarque" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProcedimentoEmbarqueValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFaixaTemperatura">
+      <soap12:operation soapAction="http://www.angellira.com.br/GetFaixaTemperatura" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetFaixaTemperaturaValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRotas">
+      <soap12:operation soapAction="http://www.angellira.com.br/GetRotas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetRotasValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRota">
+      <soap12:operation soapAction="http://www.angellira.com.br/GetRota" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetRotaValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelarEntrega">
+      <soap12:operation soapAction="http://www.angellira.com.br/CancelarEntrega" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelarEntregaValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelarViagem">
+      <soap12:operation soapAction="http://www.angellira.com.br/CancelarViagem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CancelarViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarTipoOcorrencia">
+      <soap12:operation soapAction="http://www.angellira.com.br/CadastrarTipoOcorrencia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CadastrarTipoOcorrenciaValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarProduto">
+      <soap12:operation soapAction="http://www.angellira.com.br/CadastrarProduto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CadastrarProdutoValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AtualizarRotaViagem">
+      <soap12:operation soapAction="http://www.angellira.com.br/AtualizarRotaViagem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AtualizarRotaViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaTCAFranquia">
+      <soap12:operation soapAction="http://www.angellira.com.br/ListaTCAFranquia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ListaTCAFranquiaValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarUnidadePagadora">
+      <soap12:operation soapAction="http://www.angellira.com.br/CadastrarUnidadePagadora" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CadastrarUnidadePagadoraValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CadastrarAlocacaoDeCusto">
+      <soap12:operation soapAction="http://www.angellira.com.br/CadastrarAlocacaoDeCusto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:CadastrarAlocacaoDeCustoValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SequenciarEntregas">
+      <soap12:operation soapAction="http://www.angellira.com.br/SequenciarEntregas" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:SequenciarEntregasValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDispositivoAssociado">
+      <soap12:operation soapAction="http://www.angellira.com.br/GetDispositivoAssociado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetDispositivoAssociadoValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IniciarViagem">
+      <soap12:operation soapAction="http://www.angellira.com.br/IniciarViagem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:IniciarViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinalizarViagem">
+      <soap12:operation soapAction="http://www.angellira.com.br/FinalizarViagem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:FinalizarViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarIdentificacaoViagem">
+      <soap12:operation soapAction="http://www.angellira.com.br/EnviarIdentificacaoViagem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:EnviarIdentificacaoViagemValidationSoapHeader" part="ValidationSoapHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSImport">
+    <wsdl:port name="WSImportSoap" binding="tns:WSImportSoap">
+      <soap:address location="https://api.angellira.com.br/ws-soap/WSImport.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSImportSoap12" binding="tns:WSImportSoap12">
+      <soap12:address location="https://api.angellira.com.br/ws-soap/WSImport.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
