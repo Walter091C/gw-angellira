@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Contrato fornecido pelo usuário; formatação normalizada. tVersao não é referenciado por Versao (xs:string). -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="tVersao">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="1.0" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="tEmptyNonNegativeInteger">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:length value="0" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger" />
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="tDecPos">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="tYesNo">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[SN]{1}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="tPlaca">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z]{3}-[0-9]{4}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="tFicticio">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z]{3}0[0-9]{4}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="tCartaoPedagio">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{0,30}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="tTCA">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="TCA[0-9]{5}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="tVeiculo">
+    <xs:union memberTypes="tPlaca tFicticio tTCA " />
+  </xs:simpleType>
+  <xs:simpleType name="tViagem">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:minInclusive value="1" />
+      <xs:maxInclusive value="4" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Agendamento">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Versao" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="ArqOrigem" type="xs:string" minOccurs="0" maxOccurs="1" />
+        <xs:element name="Viagem">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="V_Tipo" type="tViagem" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Carga" type="xs:string" minOccurs="1" maxOccurs="1" />
+              <xs:element name="V_Origem" type="xs:string" minOccurs="1" maxOccurs="1" />
+              <xs:element name="V_Destino" type="xs:string" minOccurs="1" maxOccurs="1" />
+              <xs:choice>
+                <xs:element name="V_Rota" type="xs:positiveInteger" minOccurs="0" maxOccurs="1" />
+                <xs:element name="V_Polilinha" type="xs:string" minOccurs="0" maxOccurs="1" />
+              </xs:choice>
+              <xs:element name="V_Distancia" type="tDecPos" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_PrevInicio" type="xs:dateTime" minOccurs="1" maxOccurs="1" />
+              <xs:element name="V_PrevFim" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_DataFat" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_TempoCarga" type="tDecPos" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_TempoDescarga" type="tDecPos" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_EnviarEmail" type="tYesNo" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_EmailsAdicionais" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_EnviarSMS" type="tYesNo" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_SMSAdicionais" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Peso" type="tDecPos" minOccurs="0" maxOccurs="1" />
+              <xs:choice>
+                <xs:element name="V_Veiculo" type="xs:string" minOccurs="1" maxOccurs="1" />
+                <xs:element name="V_Eqpto" type="xs:string" minOccurs="1" maxOccurs="1" />
+                <xs:element name="V_Frota" type="xs:positiveInteger" minOccurs="1" maxOccurs="1" />
+              </xs:choice>
+              <xs:element name="V_Cap_Veiculo" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Carreta1" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Carreta2" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Carreta3" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Escolta1" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Escolta2" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Isca1" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Isca2" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:choice>
+                <xs:element name="V_Motorista" type="xs:string" minOccurs="0" maxOccurs="1" />
+                <xs:element name="V_SenhaMot" type="xs:string" minOccurs="0" maxOccurs="1" />
+              </xs:choice>
+              <xs:element name="V_CPFMotorista" type="xs:positiveInteger" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_StatusMotorista" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_CNHMotorista" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_TelMotorista" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_jornadaMotorista" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Volume" type="tDecPos" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_UnidadeMedida" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Valor" type="tDecPos" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Frete" type="tDecPos" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_ProcedimentoEmbarque" type="tEmptyNonNegativeInteger" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_FaixaTemperatura" type="xs:positiveInteger" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Observacao" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_IdConsulta" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_FonteConsulta" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_DataConsulta" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_UnidadePagadora" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_AlocacaoDeCusto" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Eixos" type="xs:positiveInteger" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_EdicaoFinalizada" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Erro" type="xs:positiveInteger" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_ErroDescricao" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Pedido" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Transportador" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Tipo_Conjunto" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Tipo_Contratacao" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Transportador_ID" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_NumViagem" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Cativa" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Agendamento" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Tipo_Venda" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Local_Carregamento" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Itinerario" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Zona_Transporte_Destino" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Grade_Mercadoria" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Quantidade_Produtos" type="tDecPos" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Data_Hora_Carregamento" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Tipo_Veiculo" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Codigo_Transportador" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Modelo_Contratacao" type="xs:nonNegativeInteger" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Vinculo" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Load_Number" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Cartao_Pedagio" type="tCartaoPedagio" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Cnpj_Oportunidade" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="V_Tipo_Cartao" type="xs:string" minOccurs="0" maxOccurs="1" />
+              <xs:element name="MotoristaReserva" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:choice>
+                      <xs:element name="R_Motorista" type="xs:string" minOccurs="1" maxOccurs="1" />
+                      <xs:element name="R_SenhaMot" type="xs:string" minOccurs="1" maxOccurs="1" />
+                    </xs:choice>
+                    <xs:element name="R_IdConsulta" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="R_FonteConsulta" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="R_DataConsulta" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Mercadoria" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="M_Tipo" type="xs:string" minOccurs="1" maxOccurs="1" />
+                    <xs:element name="M_Valor" type="tDecPos" minOccurs="1" maxOccurs="1" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Liberacao" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:all>
+                    <xs:element name="L_Trator" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="L_Reboque" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="L_Motorista" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="L_Proprietario" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+                  </xs:all>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Entrega" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="E_SeqEntrega" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_Cliente" type="xs:string" minOccurs="1" maxOccurs="1" />
+                    <xs:element name="E_PrevInicio" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_PrevFim" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_ToleranciaInicio" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_ToleranciaFim" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_Peso" type="tDecPos" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_Volume" type="tDecPos" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_Observacao" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_Informacao1" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_Informacao2" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_NomeCli" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_TelCli" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_CNPJ_DV_Real" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_GrVenda" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_ZVenda" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_GradeHoraria" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_PrioridadeEntrega" type="xs:integer" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_HoraLimite" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_DataLimite" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_FaixaInicial" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_FaixaFinal" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="E_Endereco" type="xs:string" minOccurs="0" maxOccurs="1" />
+                    <xs:element name="Docto" minOccurs="0" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="D_Numero" type="xs:positiveInteger" minOccurs="1" maxOccurs="1" />
+                          <xs:element name="D_Serie" type="xs:string" minOccurs="0" maxOccurs="1" />
+                          <xs:element name="D_Peso" type="tDecPos" minOccurs="0" maxOccurs="1" />
+                          <xs:element name="D_Volume" type="tDecPos" minOccurs="0" maxOccurs="1" />
+                          <xs:element name="D_Valor" type="tDecPos" minOccurs="0" maxOccurs="1" />
+                          <xs:element name="D_Frete" type="tDecPos" minOccurs="0" maxOccurs="1" />
+                          <xs:element name="D_Vendedor" type="xs:string" minOccurs="0" maxOccurs="1" />
+                          <xs:element name="D_Prioridade" type="xs:positiveInteger" minOccurs="0" maxOccurs="unbounded" />
+                          <xs:element name="Produto" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="P_Codigo" type="xs:string" minOccurs="1" maxOccurs="1" />
+                                <xs:element name="P_Valor" type="tDecPos" minOccurs="1" maxOccurs="1" />
+                                <xs:element name="P_Peso" type="tDecPos" minOccurs="0" maxOccurs="1" />
+                                <xs:element name="P_Volume" type="tDecPos" minOccurs="0" maxOccurs="1" />
+                                <xs:element name="P_Identificador" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                <xs:element name="P_Origem" type="xs:string" minOccurs="0" maxOccurs="1" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
