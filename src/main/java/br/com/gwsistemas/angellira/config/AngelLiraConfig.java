@@ -1,11 +1,13 @@
-
 package br.com.gwsistemas.angellira.config;
 
 import java.net.URI;
 
 public class AngelLiraConfig {
 
-    public static final String DEFAULT_ENDPOINT = "https://api.angellira.com.br/ws-soap/WSImport.asmx";
+    public static final String ENDPOINT_PRODUCAO = "https://api.angellira.com.br/ws-soap/WSImport.asmx";
+    public static final String ENDPOINT_HOMOLOGACAO = "https://hmlapi.angellira.com.br/ws-soap/WSImport.asmx";
+
+    public static final String DEFAULT_ENDPOINT = ENDPOINT_PRODUCAO;
     private final long connectionTimeoutMillis;
     private final long receiveTimeoutMillis;
     private final String endpoint;
@@ -13,6 +15,24 @@ public class AngelLiraConfig {
     private final String password;
     private final boolean homologacao;
     private final boolean apiInterna;
+
+    public AngelLiraConfig(String login, String senha, boolean homologacao, boolean apiInterna) {
+        this(endpointDoAmbiente(homologacao), login, senha, homologacao, apiInterna);
+    }
+
+    public AngelLiraConfig(String login, String senha, boolean homologacao) {
+        this(login, senha, homologacao, false);
+    }
+
+    public AngelLiraConfig(String login, String senha, boolean homologacao, boolean apiInterna,
+                           long connectionTimeoutMillis, long receiveTimeoutMillis) {
+        this(endpointDoAmbiente(homologacao), login, senha, homologacao, apiInterna,
+                connectionTimeoutMillis, receiveTimeoutMillis);
+    }
+
+    public static String endpointDoAmbiente(boolean homologacao) {
+        return homologacao ? ENDPOINT_HOMOLOGACAO : ENDPOINT_PRODUCAO;
+    }
 
     public AngelLiraConfig(
             String endpoint,
@@ -57,6 +77,10 @@ public class AngelLiraConfig {
 
     public String getEndpoint() {
         return endpoint;
+    }
+
+    public String getLogin() {
+        return userCode;
     }
 
     public String getUserCode() {
