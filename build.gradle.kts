@@ -13,8 +13,10 @@ repositories {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    // O runtime SOAP desta variante é o JAX-WS disponibilizado pelo Java 8.
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
     withSourcesJar()
 }
 
@@ -28,14 +30,8 @@ wsdl2java {
 }
 
 dependencies {
-    api("jakarta.xml.ws:jakarta.xml.ws-api:2.3.3")
-    api("jakarta.xml.bind:jakarta.xml.bind-api:2.3.3")
-    api("jakarta.jws:jakarta.jws-api:2.1.0")
-    implementation("org.apache.cxf:cxf-rt-frontend-jaxws:3.5.11")
-    implementation("org.apache.cxf:cxf-rt-transports-http:3.5.11")
-    implementation("jakarta.annotation:jakarta.annotation-api:1.3.5")
-    runtimeOnly("org.glassfish.jaxb:jaxb-runtime:2.3.9")
-    runtimeOnly("com.sun.xml.messaging.saaj:saaj-impl:1.5.3")
+    // Java 8 já fornece JAX-WS, JAXB, SAAJ e as anotações javax necessárias.
+    // O CXF configurado em wsdl2java é usado SOMENTE na geração de fontes.
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }

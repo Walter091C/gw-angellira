@@ -49,7 +49,7 @@ class AngelLiraClientTest {
             String body = fault
                     ? "<soap:Fault><faultcode>soap:Server</faultcode><faultstring>Falha simulada</faultstring></soap:Fault>"
                     : "<" + operation + "Response xmlns=\"" + NS + "\"><" + operation + "Result>"
-                        + result + "</" + operation + "Result></" + operation + "Response>";
+                    + result + "</" + operation + "Result></" + operation + "Response>";
             byte[] response = ("<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
                     + "<soap:Body>" + body + "</soap:Body></soap:Envelope>").getBytes(StandardCharsets.UTF_8);
             exchange.getResponseHeaders().set("Content-Type", "text/xml; charset=utf-8");
@@ -217,11 +217,12 @@ class AngelLiraClientTest {
     }
 
     @Test void configuraTimeoutsNoTransporte() {
-        org.apache.cxf.transport.http.HTTPConduit conduit = (org.apache.cxf.transport.http.HTTPConduit)
-                org.apache.cxf.frontend.ClientProxy.getClient(client.getPort()).getConduit();
-        assertEquals(10000, conduit.getClient().getConnectionTimeout());
-        assertEquals(60000, conduit.getClient().getReceiveTimeout());
-        assertFalse(conduit.getClient().isAutoRedirect());
+        java.util.Map<String, Object> contexto =
+                ((javax.xml.ws.BindingProvider) client.getPort()).getRequestContext();
+        assertEquals(10000, contexto.get("com.sun.xml.internal.ws.connect.timeout"));
+        assertEquals(60000, contexto.get("com.sun.xml.internal.ws.request.timeout"));
+        assertEquals(8192, contexto.get(
+                "com.sun.xml.internal.ws.transport.http.client.streaming.chunk.size"));
     }
 
     @Test void wsdlGeradoTemLocalizacaoDisponivelNoClasspath() {

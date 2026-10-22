@@ -7,15 +7,19 @@ import br.com.gwsistemas.angellira.soap.AgendamentoXml;
 import br.com.gwsistemas.angellira.model.Agendamento;
 import br.com.gwsistemas.angellira.soap.ViagemXml;
 import java.net.URL;
+import java.io.Closeable;
+import java.io.IOException;
+import javax.xml.ws.WebServiceException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.function.IntFunction;
+import br.com.gwsistemas.angellira.model.AngelLiraStatus;
 import java.util.Objects;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.handler.Handler;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
-import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.w3c.dom.Element;
 
 /** Cliente SOAP 1.1. Crie uma instância por fluxo; não compartilhe entre threads. */
@@ -36,18 +40,20 @@ public class AngelLiraClient implements AutoCloseable {
             List<Handler> handlers = new ArrayList<>(provider.getBinding().getHandlerChain());
             handlers.add(new AuthenticationHandler(config));
             provider.getBinding().setHandlerChain(handlers);
-            HTTPConduit conduit = (HTTPConduit) ClientProxy.getClient(createdPort).getConduit();
-            HTTPClientPolicy policy = new HTTPClientPolicy();
-            policy.setConnectionTimeout(config.getConnectionTimeoutMillis());
-            policy.setReceiveTimeout(config.getReceiveTimeoutMillis());
-            // Não redirecionar requisições autenticadas nem repetir operações de escrita.
-            policy.setAutoRedirect(false);
-            policy.setMaxRetransmits(0);
-            conduit.setClient(policy);
+            // Propriedades do JAX-WS RI incluído no Java 8.
+            provider.getRequestContext().put("com.sun.xml.internal.ws.connect.timeout",
+                    timeout(config.getConnectionTimeoutMillis()));
+            provider.getRequestContext().put("com.sun.xml.internal.ws.request.timeout",
+                    timeout(config.getReceiveTimeoutMillis()));
+            // Streaming impede repetição automática de POST e redirecionamento
+            // com reenvio do corpo pelo HttpURLConnection.
+            provider.getRequestContext().put(
+                    "com.sun.xml.internal.ws.transport.http.client.streaming.chunk.size", 8192);
             this.port = createdPort;
         } catch (RuntimeException e) {
             if (createdPort != null) {
-                ClientProxy.getClient(createdPort).destroy();
+                try { fecharPort(createdPort); }
+                catch (RuntimeException fechamento) { e.addSuppressed(fechamento); }
             }
             throw new IllegalStateException("Não foi possível inicializar o cliente SOAP da AngelLira", e);
         }
@@ -65,6 +71,56 @@ public class AngelLiraClient implements AutoCloseable {
     public ArrayOfRetornoRota consultarRotas(PesquisaRota pontos) {
         Objects.requireNonNull(pontos, "pontos");
         return port.getRotas(0, pontos, null, false);
+    }
+
+    /** Lista todas as rotas acessíveis às credenciais no ambiente configurado, sem polilinha. */
+    public List<RetornoRota> consultarTodasRotas() {
+        return consultarTodasRotas(ultimaRota -> consultarPaginaRotas(ultimaRota), 1000);
+    }
+
+    /** Página sem filtros de pontos ou códigos. Não grava cadastros. */
+    public ArrayOfRetornoRota consultarPaginaRotas(int ultimaRotaRecebida) {
+        if (ultimaRotaRecebida < 0) {
+            throw new IllegalArgumentException("Última rota recebida não pode ser negativa");
+        }
+        return port.getRotas(ultimaRotaRecebida, null, null, false);
+    }
+
+    // Separado do transporte para verificar paginação sem chamadas reais.
+    static List<RetornoRota> consultarTodasRotas(IntFunction<ArrayOfRetornoRota> consulta,
+                                                 int limitePaginas) {
+        Objects.requireNonNull(consulta, "Consulta obrigatória");
+        if (limitePaginas <= 0) { throw new IllegalArgumentException("Limite de páginas inválido"); }
+        Map<Integer, RetornoRota> rotasPorCodigo = new LinkedHashMap<Integer, RetornoRota>();
+        int ultimaRotaRecebida = 0;
+        for (int pagina = 0; pagina < limitePaginas; pagina++) {
+            ArrayOfRetornoRota resposta = consulta.apply(ultimaRotaRecebida);
+            if (resposta == null) {
+                throw new WebServiceException("Consulta de rotas sem resposta; listagem incompleta");
+            }
+            if (resposta.getRetornoRota().isEmpty()) {
+                return new ArrayList<RetornoRota>(rotasPorCodigo.values());
+            }
+            int maiorCodigoRecebido = ultimaRotaRecebida;
+            for (RetornoRota rota : resposta.getRetornoRota()) {
+                if (rota == null || !AngelLiraStatus.isSucesso(rota) || rota.getCodigo() <= 0) {
+                    String motivo = rota == null ? "Retorno ausente"
+                            : "Status " + rota.getStatus() + ": " + rota.getMotivo();
+                    throw new WebServiceException("Consulta de rotas inválida: " + motivo);
+                }
+                // Aceita repetição da fronteira da página, sem duplicar o resultado.
+                if (rota.getCodigo() < ultimaRotaRecebida) {
+                    throw new WebServiceException("Consulta retornou código anterior ao cursor; listagem incompleta");
+                }
+                rotasPorCodigo.put(rota.getCodigo(), rota);
+                maiorCodigoRecebido = Math.max(maiorCodigoRecebido, rota.getCodigo());
+            }
+            if (maiorCodigoRecebido <= ultimaRotaRecebida) {
+                throw new WebServiceException("Paginação de rotas não avançou; listagem incompleta");
+            }
+            ultimaRotaRecebida = maiorCodigoRecebido;
+        }
+        throw new WebServiceException("Limite de páginas de rotas atingido; listagem incompleta");
     }
 
     public ArrayOfRetornoItem consultarProcedimentosEmbarque() {
@@ -124,5 +180,19 @@ public class AngelLiraClient implements AutoCloseable {
     /** Acesso ao stub para as demais operações do WSDL. */
     public WSImportSoap getPort() { return port; }
 
-    @Override public void close() { ClientProxy.getClient(port).destroy(); }
+    private static int timeout(long milissegundos) {
+        if (milissegundos <= 0 || milissegundos > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("Timeout deve estar entre 1 e 2147483647 milissegundos");
+        }
+        return (int) milissegundos;
+    }
+
+    private static void fecharPort(WSImportSoap port) {
+        if (port instanceof Closeable) {
+            try { ((Closeable) port).close(); }
+            catch (IOException e) { throw new WebServiceException("Falha ao fechar cliente SOAP", e); }
+        }
+    }
+
+    @Override public void close() { fecharPort(port); }
 }
